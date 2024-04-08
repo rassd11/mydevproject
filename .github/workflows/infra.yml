@@ -26,15 +26,15 @@ jobs:
       - run: echo "ec2_instance_id=`terraform output -raw instance_id`" >> $GITHUB_ENV
 
 
-    steps:
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+#     steps:
+#       - name: Run a multi-line script
+#         run: |
+#           echo Add other actions to build,
+#           echo test, and deploy your project.
 
 
-- uses: hashicorp/setup-terraform@v1
-  with:
-    terraform_wrapper: false
-- run: terraform apply -auto-approve
-- run: echo "ec2_instance_id=`terraform output -raw instance_id`" >> $GITHUB_ENV
+# - uses: hashicorp/setup-terraform@v1
+#   with:
+#     terraform_wrapper: false
+# - run: terraform apply -auto-approve
+# - run: echo "ec2_instance_id=`terraform output -raw instance_id`" >> $GITHUB_ENV
