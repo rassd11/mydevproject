@@ -24,7 +24,7 @@ jobs:
           terraform_wrapper: false
       - run: terraform init
       - run: terraform plan
-      - run: terraform apply -auto-approve
+      - run: terraform apply -auto-approve #add sensitive vars 
       - run: echo "ec2_instance_id=`terraform output -raw instance_id`" >> $GITHUB_ENV
 
 
