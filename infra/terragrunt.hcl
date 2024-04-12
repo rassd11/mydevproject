@@ -22,7 +22,7 @@ EOF
 remote_state {
   backend = "s3"
   config = {
-    bucket         = get_env("state_bucket_name")
+    bucket         = get_env("STATE_BUCKET_NAME")
     key            = "terragrunt/${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
