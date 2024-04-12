@@ -31,14 +31,14 @@ jobs:
           sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
           sudo chmod +x /usr/local/bin/terragrunt
 
-      - name: Run terraform steps
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_wrapper: false
-      - run: terraform init
-      - run: terraform plan
-      - name: Apply Terraform changes
-        id: apply
-        run: terraform apply --auto-approve -lock=false
-      - name: destroy
-        run: terragrunt destroy --auto-approve -lock=false   #remove later if works
+      # - name: Run terraform steps
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_wrapper: false
+      # - run: terraform init
+      # - run: terraform plan
+      # - name: Apply Terraform changes
+      #   id: apply
+      #   run: terraform apply --auto-approve -lock=false
+      # - name: destroy
+      #   run: terragrunt destroy --auto-approve -lock=false   #remove later if works
