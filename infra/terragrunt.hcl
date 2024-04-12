@@ -1,9 +1,6 @@
 
 
-generate "provider" {
-  path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
+
 terraform {
   required_providers {
     aws = {
@@ -13,14 +10,7 @@ terraform {
   }
 }
 
-provider "aws" {
-  region     = "us-east-1"
-  access_key = getenv("AWS_ACCESS_KEY_ID")
-  secret_key = getenv("AWS_SECRET_ACCESS_KEY")
 
-}
-EOF
-}
 
 remote_state {
   backend = "s3"
