@@ -3,6 +3,11 @@ inputs = {
   aws_secret_key = "default_value"
 }
 
+locals {
+  aws_access_key = terraform.workspace != "production" ? var.aws_access_key : null
+  aws_secret_key = terraform.workspace != "production" ? var.aws_secret_key : null
+}
+
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
