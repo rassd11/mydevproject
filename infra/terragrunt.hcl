@@ -13,8 +13,8 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = getenv("AWS_ACCESS_KEY")
-  secret_key = getenv("AWS_SECRET_KEY")
+  access_key = get_env("AWS_ACCESS_KEY")
+  secret_key = get_env("AWS_SECRET_KEY")
 }
 EOF
 }
@@ -22,7 +22,7 @@ EOF
 remote_state {
   backend = "s3"
   config = {
-    bucket         = getenv("state_bucket_name")
+    bucket         = get_env("state_bucket_name")
     key            = "terragrunt/${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
