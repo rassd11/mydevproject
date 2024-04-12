@@ -1,3 +1,8 @@
+locals {
+  access_key = get_env(AWS_ACCESS_KEY_ID)
+  secret_key = get_env(AWS_SECRET_ACCESS_KEY)
+  
+}
 
 generate "provider" {
   path      = "provider.tf"
