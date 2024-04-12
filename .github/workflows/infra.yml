@@ -11,7 +11,7 @@ jobs:
     env:
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      state_bucket_name: ${{ secrets.state_bucket_name }}
+      state_bucket_name: ${{ secrets.STATE_BUCKET_NAME }}
 
       
     steps:
@@ -49,7 +49,7 @@ jobs:
       env:
         AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        state_bucket_name: ${{ secrets.state_bucket_name }}
+        state_bucket_name: ${{ secrets.STATE_BUCKET_NAME }}
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
@@ -58,7 +58,7 @@ jobs:
       env:
         AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        state_bucket_name: ${{ secrets.state_bucket_name }}
+        state_bucket_name: ${{ secrets.STATE_BUCKET_NAME }}
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
