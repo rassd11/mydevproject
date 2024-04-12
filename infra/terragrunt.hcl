@@ -22,7 +22,7 @@ EOF
 remote_state {
   backend = "s3"
   config = {
-    bucket         = "royis-state-bucket"
+    bucket         = "royi-state-bucket"
     key            = "terragrunt/${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
