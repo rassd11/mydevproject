@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "this" {
       query_string = true
 
       cookies {
-        forward = var.cookies_forwarding
+        forward = var.cookies_forward
       }
     }
   }
@@ -34,7 +34,7 @@ resource "aws_cloudfront_distribution" "this" {
 
   restrictions {
     geo_restriction {
-      restriction_type = var.geo_restrictions
+      restriction_type = var.geo_restriction
     }
   }
 
