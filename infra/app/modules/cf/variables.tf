@@ -1,0 +1,9 @@
+variable "s3_name" {}
+variable "cf_default_certificate" {}
+variable "cf_origin_access_identity_path" {}
+variable "region" {}
+variable "tag_Name" {}
+variable "tag_Owner" {}
+variable "tag_Terraform" {}
+variable "cookies_forwarding" {}
+variable "geo_restrictions" {}
