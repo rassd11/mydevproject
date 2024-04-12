@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_ID }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       state_bucket_name: ${{ secrets.state_bucket_name }}
 
       
@@ -47,8 +47,8 @@ jobs:
       working-directory: ./infra/environments
       run: terragrunt init --terragrunt-non-interactive
       env:
-        AWS_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_ID }}
+        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         state_bucket_name: ${{ secrets.state_bucket_name }}
 
     # Generates an execution plan for Terragrunt
@@ -56,8 +56,8 @@ jobs:
       working-directory: ./infra/environments
       run: terragrunt run-all plan --terragrunt-non-interactive
       env:
-        AWS_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY_ID }}
+        AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         state_bucket_name: ${{ secrets.state_bucket_name }}
 
       # On push to main, build or change infrastructure according to Terragrunt configuration files
