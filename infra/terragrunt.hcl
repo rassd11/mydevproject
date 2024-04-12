@@ -1,8 +1,4 @@
-locals {
-  access_key = get_env(AWS_ACCESS_KEY_ID)
-  secret_key = get_env(AWS_SECRET_ACCESS_KEY)
-  
-}
+
 
 generate "provider" {
   path      = "provider.tf"
@@ -19,8 +15,9 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = var.aws_access_key 
-  secret_key = var.aws_secret_key
+  access_key = getenv("AWS_ACCESS_KEY_ID")
+  secret_key = getenv("AWS_SECRET_ACCESS_KEY")
+
 }
 EOF
 }
