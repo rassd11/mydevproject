@@ -14,10 +14,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     
-    - name: Set up environment variables
-      run: |
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+    # - name: Set up environment variables
+    #   run: |
+    #     echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+    #     echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
         
 
     # - name: Set up Terraform
@@ -45,7 +45,7 @@ jobs:
 
     - name: Terragrunt Init
       working-directory: ./infra/environments
-      run: terragrunt init --terragrunt-non-interactive -lock=false
+      run: terragrunt init -var 'aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
       env:
         AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -54,7 +54,8 @@ jobs:
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
       working-directory: ./infra/environments
-      run: terragrunt run-all plan --terragrunt-non-interactive -lock=false
+      run: terragrunt apply -var 'aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
+#terragrunt run-all plan 
       env:
         AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
