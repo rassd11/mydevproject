@@ -58,7 +58,10 @@ jobs:
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
       working-directory: ./infra/environments
-      run: terragrunt apply -var 'aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
+      env:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   
+      run: terragrunt init -var 'aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
 #terragrunt run-all plan 
       # env:
       #   AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
