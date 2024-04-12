@@ -31,6 +31,7 @@ jobs:
       with:
         terraform_version: 0.14.0
         terraform_wrapper: true
+        
     - name: Setup Terraform version
       run: terraform --version
     - name: Setup Terraform wrapper path
@@ -42,8 +43,8 @@ jobs:
         sudo chmod +x /bin/terragrunt
         terragrunt -v
 
-    # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init
+      working-directory: ./infra/environments
       run: terragrunt init --terragrunt-non-interactive
       env:
         AWS_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -52,6 +53,7 @@ jobs:
 
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
+      working-directory: ./infra/environments
       run: terragrunt run-all plan --terragrunt-non-interactive
       env:
         AWS_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
