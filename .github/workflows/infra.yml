@@ -22,14 +22,18 @@ jobs:
         with:
           terraform_version: 0.14.0
 
-      - name: Set up Terragrunt
+      - name: Gruntwork Terragrunt
         uses: gruntwork-io/terragrunt-action@v2.0.2
         with:
           tg_version: 0.50.9
           tf_version: 0.14.0
-          tg_command: init
+          tg_command: "terragrunt init && terragrunt plan -lock=false"
           tg_dir: ./infra/environments
+          tg_comment: 0
           tg_add_approve: 1
+
+          
+          
 
 
       
