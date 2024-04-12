@@ -15,7 +15,7 @@ variable "tag_Owner" {
 }
 variable "tag_Terraform" {
     description = "is terraform used?"
-    type = bool
+    
 }
 variable "cookies_forward" {
     description = "choose how the cookies forwarding being used , mostly for cache"
