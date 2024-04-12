@@ -1,7 +1,6 @@
 inputs = {
-  access_key = get_env("AWS_ACCESS_KEY_ID")
-  secret_key = get_env("AWS_SECRET_ACCESS_KEY")
-  
+  aws_access_key = "default_value"
+  aws_secret_key = "default_value"
 }
 
 generate "provider" {
@@ -19,8 +18,8 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = var.access_key 
-  secret_key = var.secret_key
+  access_key = var.aws_access_key 
+  secret_key = var.aws_secret_key
 }
 EOF
 }
