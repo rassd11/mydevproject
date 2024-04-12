@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      Uncomment and configure these steps as needed
+
       - name: Setup working dir
         working-directory: ./infra/environments
 
