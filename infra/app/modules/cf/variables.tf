@@ -5,5 +5,5 @@ variable "region" {}
 variable "tag_Name" {}
 variable "tag_Owner" {}
 variable "tag_Terraform" {}
-variable "cookies_forwarding" {}
-variable "geo_restrictions" {}
+variable "cookies_forward" {}
+variable "geo_restriction" {}
