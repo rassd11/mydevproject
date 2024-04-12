@@ -42,11 +42,3 @@ jobs:
         run: terraform apply --auto-approve -lock=false
       - name: destroy
         run: terragrunt destroy --auto-approve -lock=false   #remove later if works
-
-  # destroy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   if: ${{ failure() }}
-  #   steps:
-  #     - name: Destroy infrastructure
-  #       run: terragrunt destroy --auto-approve -lock=false
