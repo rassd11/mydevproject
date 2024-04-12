@@ -20,8 +20,8 @@ module "cf" {
   tag_Name = var.tag_Name
   tag_Owner = var.tag_Owner
   tag_Terraform = var.tag_Terraform
-  cookies_forward = var.cookies_forwarding
-  geo_restriction = var.geo_restrictions
+  cookies_forward = var.cookies_forward
+  geo_restriction = var.geo_restriction
   
 }
 
