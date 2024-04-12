@@ -13,8 +13,8 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = get_env("$AWS_ACCESS_KEY")
-  secret_key = get_env("$AWS_SECRET_KEY")
+  access_key = var.AWS_ACCESS_KEY #get_env("$AWS_ACCESS_KEY")
+  secret_key = var.AWS_SECRET_KEY get_env("$AWS_SECRET_KEY")
 }
 EOF
 }
