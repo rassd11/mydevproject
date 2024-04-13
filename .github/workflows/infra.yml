@@ -39,9 +39,9 @@ jobs:
         terragrunt -v
 
 
-    # - name: Terragrunt Destroy
-    #   working-directory: ./infra/environments
-    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+    - name: Terragrunt Destroy
+      working-directory: ./infra/environments
+      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
 
 
 
@@ -62,7 +62,7 @@ jobs:
       working-directory: ./infra
       id: cf_output
       run: terragrunt output cloudfront_domain_name 
-#        echo $GITHUB_OUTPUT
+#        echo $GITHUB_OUTPUT terragrunt output cloudfront_domain_name >> $GITHUB_OUTPUT
 
 
 
