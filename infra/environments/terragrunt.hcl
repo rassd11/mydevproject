@@ -1,10 +1,7 @@
-#include "root" {
-#  path = find_in_parent_folders()
-#}
-
-include {
-  paths = [find_in_parent_folders()]
+include "root" {
+  path = find_in_parent_folders()
 }
+
 
 terraform {
   source = "../app//main"
