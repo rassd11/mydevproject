@@ -2,6 +2,7 @@ import requests
 import json
 import os
 import subprocess
+import argparse
 
 
 URL = "https://dummyjson.com/products"
