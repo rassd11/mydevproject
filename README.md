@@ -15,6 +15,6 @@ and its all wrapped with github actions pipeline.
 ## Usage/Examples
 
 1. create aws account
-2. before running make sure to add AWS_ACCESS_KEY_ID , AWS_REGION       AWS_SECRET_ACCESS_KEY into secrets and variables >> actions
-3. go to Actions , select deploy app and infra and click on run workflow
-
+2. before running make sure to add your aws account credentials (AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY, AWS_REGION to actions secrets
+4. go to Actions , select deploy app and infra and click on run workflow
+please note that the process currently supports only manual deployment
