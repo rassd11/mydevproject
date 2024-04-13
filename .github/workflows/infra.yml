@@ -6,7 +6,7 @@ on:
     # allows to execute manually
   
 jobs:
-  build:
+  Infra-Deploy:
     runs-on: ubuntu-latest
     
     defaults:
@@ -73,6 +73,36 @@ jobs:
         TERRAGRUNT_OUTPUT=$(terragrunt output)
         echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
         echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
+
+
+
+  
+
+  App-Deploy:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        shell: bash
+      
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     # - name: Terragrunt output
