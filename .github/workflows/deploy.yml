@@ -38,9 +38,9 @@ jobs:
         sudo chmod +x /bin/terragrunt
         terragrunt -v
 
-    # - name: Terragrunt Destroy
-    #   working-directory: ./infra/environments
-    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
+    - name: Terragrunt Destroy
+      working-directory: ./infra/environments
+      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
 
       
     - name: Terragrunt Init
@@ -64,16 +64,6 @@ jobs:
     - name: Terragrunt refresh
       working-directory: ./infra/environments
       run: terragrunt refresh -lock=false && terragrunt output
-
-
-#### working version - backup
-    # - name: Terragrunt output
-    #   id: terragrunt-output
-    #   working-directory: ./infra/environments
-    #   run: |
-    #     TERRAGRUNT_OUTPUT=$(terragrunt output)
-    #     echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_OUTPUT
-    #     echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
 
     - name: Terragrunt output
       id: terragrunt-output
@@ -108,11 +98,6 @@ jobs:
       env:
         TERRAGRUNT_OUTPUT: ${{ needs.Infra-Deploy.outputs.output1 }}
       run: python3 app.py --cfDomain="$TERRAGRUNT_OUTPUT"
-      #run: |
-          
- #       echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
-
-
 
 
 
