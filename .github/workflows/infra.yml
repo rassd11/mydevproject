@@ -21,13 +21,13 @@ jobs:
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
 
-      - name: Destroy
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ env.working_dir }}
-          tg_command: 'destroy --aut-approve -lock=false'
+      # - name: Destroy
+      #   uses: gruntwork-io/terragrunt-action@v2
+      #   with:
+      #     tf_version: ${{ env.tf_version }}
+      #     tg_version: ${{ env.tg_version }}
+      #     tg_dir: ${{ env.working_dir }}
+      #     tg_command: 'destroy --aut-approve -lock=false'
 
       - name: init
         uses: gruntwork-io/terragrunt-action@v2
