@@ -50,6 +50,12 @@ def download_from_s3(cfDomain, s3_url):
     except subprocess.CalledProcessError as e:
         print(f"Error downloading file: {e}")
 
+def validateJSON(jsonData):
+    try:
+        json.loads(jsonData)
+    except ValueError:
+        return False
+    return True
 
 if __name__ == "__main__":
     abspath = os.path.abspath(__file__)
@@ -74,3 +80,11 @@ if __name__ == "__main__":
     filtered_list_path = os.path.join(script_dir, 'filtered_list.json')
     upload_to_s3(cfDomain, filtered_list_path, s3_url)
     download_from_s3(cfDomain, s3_url)
+
+
+    with open("downloaded_filtered_list.json", 'r') as test:
+        json_data = test.read()
+        if validateJSON(json_data):
+            print("JSON is valid.")
+        else:
+            print("JSON is not valid.")
