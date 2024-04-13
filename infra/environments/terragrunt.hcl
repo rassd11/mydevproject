@@ -2,11 +2,9 @@ include "root" {
   path = find_in_parent_folders()
 }
 
-
 terraform {
   source = "../app//main"
 }
-
 
 
 inputs = {
@@ -19,6 +17,7 @@ inputs = {
   tag_Name = "ProductCloudFront"
   tag_Owner = "RoyiS"
   tag_Terraform = "True"
-
+  
 }
+
 
