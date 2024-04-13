@@ -48,6 +48,8 @@ def download_from_s3(cfDomain):
     except subprocess.CalledProcessError as e:
         print(f"Error downloading file: {e}")
 
+
+
 if __name__ == "__main__":
     abspath = os.path.abspath(__file__)
     dname = os.path.dirname(abspath)
@@ -56,13 +58,11 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     cfDomain = os.environ.get("TERRAGRUNT_OUTPUT")
-    print(cfDomain)
-
-    #CHANGE LATER TO /tmp for linux support!!
-    # output_file_path = os.path.join('C:\\Temp', 'output.txt')
-    # with open(output_file_path, 'r') as tf_output:
-    #     cfDomain = tf_output.read().replace('\\"', '').strip()
-    #     cfDomain = f'http://{cfDomain}'
+    if cfDomain is None:
+        print("cloudfront domain is null!")
+        exit(1)
+    else:
+    print(f'cloudfront domain recieved: {cfDomain}')
 
     write_output(URL)
     filter_objects(filtered_products)
