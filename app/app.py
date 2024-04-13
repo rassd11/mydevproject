@@ -58,7 +58,6 @@ if __name__ == "__main__":
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-
     parser = argparse.ArgumentParser(description="json processing app that works with s3")
     parser.add_argument("--cfDomain", help="CloudFront domain output by Terragrunt")
     args = parser.parse_args()
@@ -69,6 +68,8 @@ if __name__ == "__main__":
         print("CloudFront domain is not provided!")
         exit(1)
 
+    cfDomain = args.cfDomain  # Assigning value to cfDomain from command line argument
+    
     
 
     # cfDomain = os.environ.get("TERRAGRUNT_OUTPUT")
