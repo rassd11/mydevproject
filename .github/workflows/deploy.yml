@@ -104,7 +104,7 @@ jobs:
     - name: Run Python App
       working-directory: app  
       env:
-        TERRAGRUNT_OUTPUT: ${{ steps.terragrunt-output.outputs.TERRAGRUNT_OUTPUT }}
+        TERRAGRUNT_OUTPUT: ${{ needs.Infra-Deploy.terragrunt-output.TERRAGRUNT_OUTPUT }}
       run: |
         echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
 
