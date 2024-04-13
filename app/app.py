@@ -37,7 +37,7 @@ def filter_objects(filtered_products):
 
 def upload_to_s3(cfDomain, filtered_list_path):
     try:
-        subprocess.run(["curl", "-X", "PUT", "-T", filtered_list_path, f"http://{cfDomain}/filtered_list.json"], check=True)
+        subprocess.run(["curl", "-X", "PUT", "-T", filtered_list_path, f"http://{cfDomain}"], check=True)
         print("File successfully uploaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error uploading file: {e}")
