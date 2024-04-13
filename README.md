@@ -9,20 +9,26 @@ the application is simple python application that parse given JSON object and up
 while the infrastructure part goal is to set up private s3 bucket on given aws account with cloudfront by using terraform and terragrunt and make sure that the bucket will be accessible only fron cloudfront. 
 and its all wrapped with github actions pipeline.
 
+## The Approach
+When i started to work on my program my approach was to keep things balanced between best practices and keep things simple.
+
 ## Getting Started
 
 ### Dependencies
-* aws account
-* before running make sure to add your aws account credentials (AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY, AWS_REGION to actions secrets
+* aws account.
+* before running make sure to add your aws account credentials (AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY, AWS_REGION to actions secrets.
 
+## Usage
+to execute the process just go to Actions , select deploy app and infra and click on run workflow.
+please note that the process currently supports only manual deployments.
 
-## Usage/Examples
-to execute the process simply go to Actions , select deploy app and infra and click on run workflow.
-please note that the process currently supports only manual deployment
-
+## TODO
+* "Dry" out the terraform and terragrunt even more by using the "keep it dry" terragrunt approach.
+* replace aws authentication method to assume role.
+* add more conditions to Github Actions.
 
 ## Help
-Any advise for common problems or issues.
+for any issues , questions or advices please contact me
 
 ## Authors
 @me
