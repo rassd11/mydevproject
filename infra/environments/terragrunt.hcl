@@ -20,7 +20,3 @@ inputs = {
 
 }
 
-
-locals {
-  cloudfront_domain_name   = get_terragrunt_output("cloudfront_domain_name")
-}
