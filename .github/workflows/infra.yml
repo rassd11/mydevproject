@@ -1,64 +1,111 @@
 name: deploy app and infra
 
+
 on:
   workflow_dispatch:
-
-env:
-  tf_version: '0.14.0'
-  tg_version: '0.50.9'
-  working_dir: './infra/environments'
-
+    # allows to execute manually
+  
 jobs:
-  checks:
+  build:
     runs-on: ubuntu-latest
+      
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@main
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Set up environment variables
-        run: |
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
 
-      # - name: Destroy
+    
+    - name: Set up environment variables
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+
+    - name: Setup Terraform v0.14.0
+      uses: hashicorp/setup-Terraform@v1
+      with:
+        terraform_version: 0.14.0
+        terraform_wrapper: false
+        
+    - name: Setup Terraform version
+      run: terraform --version
+    # - name: Setup Terraform wrapper path
+    #   run: which terraform        
+
+    - name: Setup Terragrunt v0.50.9
+      run: |
+        sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.50.9/terragrunt_linux_amd64"
+        sudo chmod +x /bin/terragrunt
+        terragrunt -v
+
+
+    - name: Terragrunt Destroy
+      working-directory: ./infra/environments
+      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+
+
+
+
+# on:
+#   workflow_dispatch:
+
+# env:
+#   tf_version: '0.14.0'
+#   tg_version: '0.50.9'
+#   working_dir: './infra/environments'
+
+# jobs:
+#   checks:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 'Checkout'
+#         uses: actions/checkout@main
+
+#       - name: Set up environment variables
+#         run: |
+#           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+#           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+#           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+
+      # # - name: Destroy
+      # #   uses: gruntwork-io/terragrunt-action@v2
+      # #   with:
+      # #     tf_version: ${{ env.tf_version }}
+      # #     tg_version: ${{ env.tg_version }}
+      # #     tg_dir: ${{ env.working_dir }}
+      # #     tg_command: 'destroy --aut-approve -lock=false'
+
+      # - name: init
       #   uses: gruntwork-io/terragrunt-action@v2
       #   with:
       #     tf_version: ${{ env.tf_version }}
       #     tg_version: ${{ env.tg_version }}
       #     tg_dir: ${{ env.working_dir }}
-      #     tg_command: 'destroy --aut-approve -lock=false'
+      #     tg_add_approve: 1
+      #     tg_command: 'init'
 
-      - name: init
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ env.working_dir }}
-          tg_add_approve: 1
-          tg_command: 'init'
-
-      - name: Plan
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ env.working_dir }}
-          tg_command: 'plan'
+      # - name: Plan
+      #   uses: gruntwork-io/terragrunt-action@v2
+      #   with:
+      #     tf_version: ${{ env.tf_version }}
+      #     tg_version: ${{ env.tg_version }}
+      #     tg_dir: ${{ env.working_dir }}
+      #     tg_command: 'plan'
 
 
-      - name: Deploy
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ env.working_dir }}
-          tg_add_approve: 1
-          tg_action_output: true
-          tg_command: 'apply'
+      # - name: Deploy
+      #   uses: gruntwork-io/terragrunt-action@v2
+      #   with:
+      #     tf_version: ${{ env.tf_version }}
+      #     tg_version: ${{ env.tg_version }}
+      #     tg_dir: ${{ env.working_dir }}
+      #     tg_add_approve: 1
+      #     tg_action_output: true
+      #     tg_command: 'apply'
 
-      - name: Set CF Domain Name Environment Variable
-        run: echo "CF_DOMAIN_NAME=${{ steps.terragrunt_deploy.outputs.cloudfront_domain_name }}" >> $GITHUB_ENV
+      # - name: Set CF Domain Name Environment Variable
+      #   run: echo "CF_DOMAIN_NAME=${{ steps.terragrunt_deploy.outputs.cloudfront_domain_name }}" >> $GITHUB_ENV
 
 
 
