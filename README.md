@@ -1,6 +1,6 @@
 
 # The Project
-The project idea is to demonstrate my skills by creating simple app with infrastructure and wrap it with github actions deployment process.
+The project idea is to demonstrate my skills by creating simple application that also include infrastructure set up and wrap it with github actions deployment process.
 
 ## The App
 The main app idea is simple python application that takes json as input and parse it according to specific needs then upload to s3 bucket.
