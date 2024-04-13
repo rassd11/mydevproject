@@ -25,7 +25,7 @@ jobs:
       uses: hashicorp/setup-Terraform@v1
       with:
         terraform_version: 0.14.0
-        terraform_wrapper: true
+        terraform_wrapper: false
         
     - name: Setup Terraform version
       run: terraform --version
@@ -59,19 +59,25 @@ jobs:
       run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
 
     - name: Capture CloudFront Domain Name
+      id: cf_output
       run: |
-        terragrunt output cloudfront_domain_name > /tmp/output.txt
-        cat /tmp/output.txt
+        echo "domain_name=$(terragrunt output -raw cloudfront_domain_name)" >> $GITHUB_OUTPUT
+        echo "$domain_name"
 
-    - name: Capture CloudFront Domain Name
-      id: capture_cf_domain
+
+    - name: validate domain name
       run: |
-        terragrunt output cloudfront_domain_name > /tmp/output.txt
-        echo "::set-output name=cf_domain::$(cat /tmp/output.txt)"
-        cf_domain=$(terragrunt output cloudfront_domain_name)
-        echo "CF_DOMAIN=$cf_domain" >> $GITHUB_ENV
-        echo "The CloudFront Domain Name is $CF_DOMAIN"
-        echo "cf domain $cf_domain" 
+        echo "${{ steps.cf_output.outputs.domain_name }}"
+
+    # - name: Capture CloudFront Domain Name
+    #   id: capture_cf_domain
+    #   run: |
+    #     terragrunt output cloudfront_domain_name > /tmp/output.txt
+    #     echo "::set-output name=cf_domain::$(cat /tmp/output.txt)"
+    #     cf_domain=$(terragrunt output cloudfront_domain_name)
+    #     echo "CF_DOMAIN=$cf_domain" >> $GITHUB_ENV
+    #     echo "The CloudFront Domain Name is $CF_DOMAIN"
+    #     echo "cf domain $cf_domain" 
     
 
 
