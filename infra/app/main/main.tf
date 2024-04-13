@@ -25,14 +25,16 @@ module "cf" {
   
 }
 
+
+
 resource "null_resource" "write_to_env" {
   provisioner "local-exec" {
     command = <<-EOT
-      echo "export CLOUDFRONT_DOMAIN=$${module.cf.cloudfront_domain_name}" > /tmp/output.txt
+      export CLOUDFRONT_DOMAIN="${module.cf.cloudfront_domain_name}"
+      echo $CLOUDFRONT_DOMAIN > /tmp/output.txt
     EOT
   }
 }
-
 
 # resource "null_resource" "write_to_env" {
 #   provisioner "local-exec" {
