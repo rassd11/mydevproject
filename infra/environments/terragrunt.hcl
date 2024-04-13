@@ -1,5 +1,5 @@
 include "root" {
-  path = find_in_parent_folders()
+  paths = [find_in_parent_folders()]
 }
 
 
@@ -23,6 +23,8 @@ inputs = {
   tag_Name = "ProductCloudFront"
   tag_Owner = "RoyiS"
   tag_Terraform = "True"
+  cloudfront_domain_name = dependency.output.cloudfront_domain_name
+
 
 }
 
