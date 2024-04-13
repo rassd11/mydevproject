@@ -31,8 +31,8 @@ module "cf" {
 resource "null_resource" "write_to_env" {
   provisioner "local-exec" {
     command = <<-EOT
-      echo "domain_name=${module.cf.cloudfront_domain_name}" >> $GITHUB_OUTPUT
-      echo $domain_name
+      echo "cloudfront_domain_name=${module.cf.cloudfront_domain_name}" >> $GITHUB_OUTPUT
+      echo $cloudfront_domain_name
     EOT
   }
 }
