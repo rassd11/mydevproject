@@ -27,7 +27,7 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'Destroy --aut-approve -lock=false'
+          tg_command: 'destroy --aut-approve -lock=false'
 
       - name: init
         uses: gruntwork-io/terragrunt-action@v2
