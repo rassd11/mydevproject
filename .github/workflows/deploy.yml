@@ -36,9 +36,9 @@ jobs:
         sudo chmod +x /bin/terragrunt
         terragrunt -v
 
-    - name: Terragrunt Destroy
-      working-directory: ./infra/environments
-      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
+    # - name: Terragrunt Destroy
+    #   working-directory: ./infra/environments
+    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
 
       
     - name: Terragrunt Init
