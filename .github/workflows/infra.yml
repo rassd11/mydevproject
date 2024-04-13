@@ -56,6 +56,9 @@ jobs:
       working-directory: ./infra/environments
       run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
 
+    - name: Capture CloudFront Domain Name
+      run: |
+        terragrunt output cloudfront_domain_name > /tmp/output.txt
 
     - name: validate that output exist
       run: |
