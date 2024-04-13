@@ -23,7 +23,7 @@ to execute the process just go to Actions , select deploy app and infra , and cl
 please note that the process currently supports only manual deployments.
 
 ## TODO
-* "Dry" out the terraform and terragrunt even more by using the "keep it dry" terragrunt approach.
+* "Dry" out the terraform and terragrunt even more by following the "keep it dry" terragrunt approach.
 * replace aws authentication method to assume role.
 * add more conditions to Github Actions.
 * expand the project with more tools and technologies
