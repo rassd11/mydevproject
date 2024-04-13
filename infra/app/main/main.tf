@@ -1,6 +1,3 @@
-
-
-
 module "s3" {
   source = "../modules//s3"
   s3_name = var.s3_name
@@ -24,18 +21,3 @@ module "cf" {
   geo_restriction = var.geo_restriction
   
 }
-
-
-
-
-#resource "null_resource" "write_to_env" {
-# depends_on = [module.cf]
-#  provisioner "local-exec" {
-#    command = <<-EOT
-#      terraform output >> asd.txt
-#      cat asd.txt
-#    EOT
-#  }
-#}
-
-
