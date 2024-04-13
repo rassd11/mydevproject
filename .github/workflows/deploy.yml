@@ -94,6 +94,8 @@ jobs:
     - name: Install dependencies
       working-directory: app  
       run: python3 app.py
+      env:
+        TERRAGRUNT_OUTPUT: ${{ env.TERRAGRUNT_OUTPUT }}
 
 
 
