@@ -19,7 +19,7 @@ When i started to work on my program my approach was to keep things balanced bet
 * before running make sure to add your aws account credentials (AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY, AWS_REGION to actions secrets.
 
 ## Usage
-to execute the process just go to Actions , select deploy app and infra and click on run workflow.
+to execute the process just go to Actions , select deploy app and infra , and click on run workflow.
 please note that the process currently supports only manual deployments.
 
 ## TODO
