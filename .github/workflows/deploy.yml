@@ -108,9 +108,10 @@ jobs:
       env:
         TERRAGRUNT_OUTPUT: ${{ needs.Infra-Deploy.outputs.output1 }}
       run: |
-        echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
+          run: python3 app.py --cfDomain="$TERRAGRUNT_OUTPUT"
+ #       echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
 
-#      run: python3 app.py --cfDomain="$TERRAGRUNT_OUTPUT"
+
 
 
 
