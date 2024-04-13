@@ -35,6 +35,7 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
+          tg_add_approve: 1
           tg_command: 'init'
 
       - name: Plan
@@ -52,8 +53,9 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
+          tg_add_approve: 1
           tg_action_output: true
-          tg_command: 'apply --auto-approve -lock=false'
+          tg_command: 'apply'
 
       - name: Set CF Domain Name Environment Variable
         run: echo "CF_DOMAIN_NAME=${{ steps.terragrunt_deploy.outputs.cloudfront_domain_name }}" >> $GITHUB_ENV
