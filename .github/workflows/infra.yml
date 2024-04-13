@@ -36,6 +36,16 @@ jobs:
         sudo chmod +x /bin/terragrunt
         terragrunt -v
 
+  destroy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Terragrunt Destroy
+      working-directory: ./infra/environments
+      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+
+
+
     - name: Terragrunt Init
       working-directory: ./infra/environments
       run: terragrunt init --terragrunt-non-interactive -lock=false
@@ -54,13 +64,13 @@ jobs:
       run: |
         cat /tmp/output.txt
         
-  destroy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: Terragrunt Destroy
-      working-directory: ./infra/environments
-      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+  # destroy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #   - name: Terragrunt Destroy
+  #     working-directory: ./infra/environments
+  #     run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
 
     # - name: Terragrunt Destroy
     #   working-directory: ./infra/environments
