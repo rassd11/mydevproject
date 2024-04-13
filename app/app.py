@@ -69,6 +69,8 @@ if __name__ == "__main__":
         exit(1)
 
     cfDomain = args.cfDomain  # Assigning value to cfDomain from command line argument
+    cfDomain = os.getenv("TERRAGRUNT_OUTPUT")
+    print(cfDomain)
     
     
 
