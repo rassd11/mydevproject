@@ -36,10 +36,7 @@ jobs:
         sudo chmod +x /bin/terragrunt
         terragrunt -v
 
-  destroy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+
     - name: Terragrunt Destroy
       working-directory: ./infra/environments
       run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
