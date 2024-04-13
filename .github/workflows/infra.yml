@@ -45,6 +45,20 @@ jobs:
       working-directory: ./infra/environments
       run: terragrunt plan --terragrunt-non-interactive -lock=false #-var 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
 
+    - name: Terragrunt Apply
+      working-directory: ./infra/environments
+      run: terragrunt apply --terragrunt-non-interactive -lock=false #-var 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
+
+
+    - name: validate that output exist
+      run: |
+        cat /tmp/output.txt
+        
+
+    - name: Terragrunt Destroy
+      working-directory: ./infra/environments
+      run: terragrunt destroy --terragrunt-non-interactive -lock=false #-var 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
+
 
 
 #TODO:
