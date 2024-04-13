@@ -38,7 +38,6 @@ jobs:
 
 
     - name: Terragrunt Destroy
-      if: steps.apply.outcome == 'failure'
       working-directory: ./infra/environments
       run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
 
