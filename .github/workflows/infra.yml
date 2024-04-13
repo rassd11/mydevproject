@@ -66,9 +66,18 @@ jobs:
       working-directory: ./infra/environments
       run: terragrunt refresh -lock=false && terragrunt output
 
+
     - name: Terragrunt output
       working-directory: ./infra/environments
-      run: terragrunt output -json
+      run: |
+        TERRAGRUNT_OUTPUT=$(terragrunt output)
+        echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
+        echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
+
+
+    # - name: Terragrunt output
+    #   working-directory: ./infra/environments
+    #   run: terragrunt output -json
 
     # - name: Terragrunt Apply
     #   working-directory: ./infra/environments
