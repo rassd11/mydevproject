@@ -18,10 +18,6 @@ inputs = {
   tag_Owner = "RoyiS"
   tag_Terraform = "True"
 
-
-
-  cloudfront_domain_name = get_terragrunt_output("cloudfront_domain_name")
-
 }
 
 
