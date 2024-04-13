@@ -58,28 +58,28 @@ jobs:
       working-directory: ./infra/environments
       run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
 
-    - name: Capture CloudFront Domain Name
-      working-directory: ./infra
-      id: cf_output
-      run: |
-        terragrunt output cloudfront_domain_name >> asd.txt
-        cat asd.txt
-      shell: bash
+    # - name: Capture CloudFront Domain Name
+    #   working-directory: ./infra
+    #   id: cf_output
+    #   run: |
+    #     terragrunt output cloudfront_domain_name >> asd.txt
+    #     cat asd.txt
+    #   shell: bash
 
-    - name: show CloudFront Domain Name
-      run: echo "$GITHUB_OUTPUT"
+    # - name: show CloudFront Domain Name
+    #   run: echo "$GITHUB_OUTPUT"
 
       
     # - name: Capture CloudFront Domain Name
     #   run: $cloudfront_domain_name
 
 
-    - name: Val2
-      working-directory: ./infra
-      run: |
-        echo "$(terragrunt output -raw cloudfront_domain_name)" >> asd.txt
-        cat asd.txt
-      shell: bash
+    # - name: Val2
+    #   working-directory: ./infra
+    #   run: |
+    #     echo "$(terragrunt output -raw cloudfront_domain_name)" >> asd.txt
+    #     cat asd.txt
+    #   shell: bash
 
       
 #        echo $GITHUB_OUTPUT terragrunt output cloudfront_domain_name >> $GITHUB_OUTPUT
