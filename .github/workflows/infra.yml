@@ -16,7 +16,7 @@ jobs:
       
     steps:
     - name: Installing Python  Dependancies
-      working-directory: /app
+      working-directory: app
       run: pip install -r requirements.txt
 
     # Here you need to define a `uses` or `run` key for the step
