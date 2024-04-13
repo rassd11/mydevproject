@@ -1,5 +1,5 @@
 include "root" {
-  paths = [find_in_parent_folders()]
+  paths = find_in_parent_folders()
 }
 
 
@@ -7,11 +7,7 @@ terraform {
   source = "../app//main"
 }
 
-dependencies {
-  outputs = {
-    cloudfront_domain_name = dependency.cf.output["cloudfront_domain_name"]
-  }
-}
+
 
 inputs = {
   s3_name = "royis-bucket"
@@ -23,8 +19,6 @@ inputs = {
   tag_Name = "ProductCloudFront"
   tag_Owner = "RoyiS"
   tag_Terraform = "True"
-  cloudfront_domain_name = dependency.output.cloudfront_domain_name
-
 
 }
 
