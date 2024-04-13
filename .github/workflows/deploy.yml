@@ -6,6 +6,8 @@ on:
 jobs:
   Infra-Deploy:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.terragrunt-output.outputs.TERRAGRUNT_OUTPUT }}
     
     defaults:
       run:
@@ -104,7 +106,7 @@ jobs:
     - name: Run Python App
       working-directory: app  
       env:
-        TERRAGRUNT_OUTPUT: ${{ needs.Infra-Deploy.terragrunt-output.TERRAGRUNT_OUTPUT }}
+        TERRAGRUNT_OUTPUT: ${{ needs.Infra-Deploy.outputs.output1 }}
       run: |
         echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
 
