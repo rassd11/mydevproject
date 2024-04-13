@@ -37,7 +37,7 @@ def filter_objects(filtered_products):
 
 def upload_to_s3(cfDomain, filtered_list_path):
     try:
-        subprocess.run(["curl", "-X", "PUT", "-T", filtered_list_path, f"http://{cfDomain}"], check=True)
+        subprocess.run(["curl", "-X", "PUT", "-T", "filtered_list.json", f"http://{cfDomain}"], check=True)
         print("File successfully uploaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error uploading file: {e}")
@@ -48,7 +48,6 @@ def download_from_s3(cfDomain):
         print("File successfully downloaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error downloading file: {e}")
-
 
 
 if __name__ == "__main__":
@@ -69,14 +68,6 @@ if __name__ == "__main__":
     cfDomain = os.getenv("TERRAGRUNT_OUTPUT")
     print(cfDomain)
     
-    
-
-    # cfDomain = os.environ.get("TERRAGRUNT_OUTPUT")
-    # if cfDomain is None:
-    #     print("cloudfront domain is null!")
-    #     exit(1)
-    # else:
-    #     print(f'cloudfront domain recieved: {cfDomain}')
 
     write_output(URL)
     filter_objects(filtered_products)
