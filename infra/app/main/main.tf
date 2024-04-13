@@ -28,13 +28,13 @@ module "cf" {
 
 
 
-resource "null_resource" "write_to_env" {
-  provisioner "local-exec" {
-    command = <<-EOT
-      echo "${module.cf.cloudfront_domain_name}" > /tmp/output.txt
-      cat /tmp/output.txt
-    EOT
-  }
-}
+#resource "null_resource" "write_to_env" {
+#  provisioner "local-exec" {
+#    command = <<-EOT
+#      echo "${module.cf.cloudfront_domain_name}" > /tmp/output.txt
+#      cat /tmp/output.txt
+#    EOT
+#  }
+#}
 
 
