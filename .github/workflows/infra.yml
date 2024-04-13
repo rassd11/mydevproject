@@ -62,13 +62,10 @@ jobs:
       working-directory: ./infra
       id: cf_output
       run: |
-        echo domain_name=$(terragrunt output -raw cloudfront_domain_name) >> $GITHUB_OUTPUT
-        echo $domain_name
+        terragrunt output -raw cloudfront_domain_name >> $GITHUB_OUTPUT
+        echo $GITHUB_OUTPUT
 
 
-    - name: validate domain name
-      run: |
-        echo "${{ steps.cf_output.outputs.domain_name }}"
 
     # - name: Capture CloudFront Domain Name
     #   id: capture_cf_domain
