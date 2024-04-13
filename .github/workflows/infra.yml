@@ -14,19 +14,19 @@ jobs:
     #   run:
     #     shell: bash
       
-    steps:
     
-
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+      
     - name: Install dependencies
-      working-directory: ./app
+      working-directory: ./app  # Specify the correct working directory
       run: |
         pip install -r requirements.txt
+        pip list  # Print installed packages for debugging purposes
       
-    
-    - name: Run script
-      working-directory: ./app
-      run: python script.py
-
 
 
 
