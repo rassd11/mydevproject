@@ -28,14 +28,14 @@ module "cf" {
 
 
 
-resource "null_resource" "write_to_env" {
-  depends_on = [module.cf]
-  provisioner "local-exec" {
-    command = <<-EOT
-      terraform output >> asd.txt
-      cat asd.txt
-    EOT
-  }
-}
+#resource "null_resource" "write_to_env" {
+# depends_on = [module.cf]
+#  provisioner "local-exec" {
+#    command = <<-EOT
+#      terraform output >> asd.txt
+#      cat asd.txt
+#    EOT
+#  }
+#}
 
 
