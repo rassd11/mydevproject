@@ -61,8 +61,7 @@ jobs:
     - name: Capture CloudFront Domain Name
       working-directory: ./infra
       id: cf_output
-      run: |
-        terragrunt output cloudfront_domain_name 
+      run: terragrunt output cloudfront_domain_name 
 #        echo $GITHUB_OUTPUT
 
 
