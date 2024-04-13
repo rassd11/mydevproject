@@ -57,12 +57,16 @@ jobs:
     - name: Terragrunt Plan
       working-directory: ./infra/environments
       run: terragrunt plan --terragrunt-non-interactive -lock=false
+
+    - name: Terragrunt Apply
+      working-directory: ./infra/environments
+      run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
     
     - name: Terragrunt refresh
       working-directory: ./infra/environments
       run: terragrunt refresh -lock=false && terragrunt output
 
-    - name: Terragrunt refresh
+    - name: Terragrunt output
       working-directory: ./infra/environments
       run: terragrunt output -json
 
