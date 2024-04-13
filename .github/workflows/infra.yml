@@ -59,6 +59,7 @@ jobs:
       run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
 
     - name: Capture CloudFront Domain Name
+      working-directory: ./infra
       id: cf_output
       run: |
         echo domain_name=$(terragrunt output -raw cloudfront_domain_name) >> $GITHUB_OUTPUT
