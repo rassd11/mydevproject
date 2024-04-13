@@ -16,12 +16,13 @@ jobs:
       
     steps:
     - name: Installing Python  Dependancies
-      working-directory: app
       run: pip install -r requirements.txt
 
     # Here you need to define a `uses` or `run` key for the step
+    
     - name: Running app.py
-      run: python my_script.py
+      working-directory: app
+      run: python app.py
 
   # Infra-Deploy:
   #   runs-on: ubuntu-latest
