@@ -22,7 +22,7 @@ jobs:
         python-version: '3.9'
       
     - name: Install dependencies
-      working-directory: ./app  # Specify the correct working directory
+      working-directory: app  # Specify the correct working directory
       run: |
         pip install -r requirements.txt
         pip list  # Print installed packages for debugging purposes
