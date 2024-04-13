@@ -26,6 +26,7 @@ please note that the process currently supports only manual deployments.
 * "Dry" out the terraform and terragrunt even more by using the "keep it dry" terragrunt approach.
 * replace aws authentication method to assume role.
 * add more conditions to Github Actions.
+* expand the project with more tools and technologies
 
 ## Help
 for any issues , questions or advices please contact me
