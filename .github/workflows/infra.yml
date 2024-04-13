@@ -15,16 +15,18 @@ jobs:
     #     shell: bash
       
     steps:
-    # - name: Installing Python  Dependancies
-    #   run: cd /app && pip install -r requirements.txt
-    # #   working-directory: app
-    # #   run: pip install -r requirements.txt
-
     
-    - name: Running app.py
-      working-directory: app
-      run: python app.py
+    
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+      
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Run script
+      run: python script.py
 
 
 
