@@ -60,7 +60,7 @@ jobs:
     
     - name: Terragrunt refresh
       working-directory: ./infra/environments
-      run: terragrunt refresh && terragrunt output
+      run: terragrunt refresh -lock=false && terragrunt output -lock=false 
 
     # - name: Terragrunt Apply
     #   working-directory: ./infra/environments
