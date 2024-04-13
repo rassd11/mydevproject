@@ -17,6 +17,8 @@ inputs = {
   tag_Name = "ProductCloudFront"
   tag_Owner = "RoyiS"
   tag_Terraform = "True"
+
+  cloudfront_domain_name = dependency.terraform_module.outputs["cloudfront_domain_name"]
   
 }
 
