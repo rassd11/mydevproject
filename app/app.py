@@ -62,7 +62,7 @@ if __name__ == "__main__":
         print("cloudfront domain is null!")
         exit(1)
     else:
-    print(f'cloudfront domain recieved: {cfDomain}')
+        print(f'cloudfront domain recieved: {cfDomain}')
 
     write_output(URL)
     filter_objects(filtered_products)
