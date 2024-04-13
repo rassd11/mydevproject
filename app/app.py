@@ -57,12 +57,25 @@ if __name__ == "__main__":
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    cfDomain = os.environ.get("TERRAGRUNT_OUTPUT")
-    if cfDomain is None:
-        print("cloudfront domain is null!")
+
+    parser = argparse.ArgumentParser(description="json processing app that works with s3")
+    parser.add_argument("--cfDomain", help="CloudFront domain output by Terragrunt")
+    args = parser.parse_args()
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    if args.cfDomain is None:
+        print("CloudFront domain is not provided!")
         exit(1)
-    else:
-        print(f'cloudfront domain recieved: {cfDomain}')
+
+    
+
+    # cfDomain = os.environ.get("TERRAGRUNT_OUTPUT")
+    # if cfDomain is None:
+    #     print("cloudfront domain is null!")
+    #     exit(1)
+    # else:
+    #     print(f'cloudfront domain recieved: {cfDomain}')
 
     write_output(URL)
     filter_objects(filtered_products)
