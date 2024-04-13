@@ -1,5 +1,5 @@
 include "root" {
-  paths = find_in_parent_folders()
+  path = find_in_parent_folders()
 }
 
 
