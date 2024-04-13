@@ -87,14 +87,12 @@ jobs:
         shell: bash
       
     steps:
-
     - name: Installing Python  Dependancies
       working-directory: ./app
       run: pip install -r requirements.txt
 
       
     - name: running app.py
-    - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
         python-version: '3.10' 
