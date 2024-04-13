@@ -62,8 +62,8 @@ jobs:
       working-directory: ./infra
       id: cf_output
       run: |
-        terragrunt output -raw cloudfront_domain_name >> $GITHUB_OUTPUT
-        echo $GITHUB_OUTPUT
+        terragrunt output cloudfront_domain_name 
+#        echo $GITHUB_OUTPUT
 
 
 
