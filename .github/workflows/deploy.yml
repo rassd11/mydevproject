@@ -77,7 +77,7 @@ jobs:
       id: terragrunt-output
       working-directory: ./infra/environments
       run: |
-        TERRAGRUNT_OUTPUT=$(terragrunt output)
+        TERRAGRUNT_OUTPUT=$(terragrunt output cloudfront_domain_name)
         echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_OUTPUT
         echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
     
