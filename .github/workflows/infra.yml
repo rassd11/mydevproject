@@ -1,259 +1,111 @@
 name: deploy app and infra
 
-
 on:
   workflow_dispatch:
-    # allows to execute manually
-
 
 jobs:
-
-  App-Deploy:
+  Infra-Deploy:
     runs-on: ubuntu-latest
-  
+    
+    defaults:
+      run:
+        shell: bash
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
       
-    - name: Install dependencies
-      working-directory: app  
+    - name: Set up environment variables
       run: |
-        pip install -r requirements.txt
-        pip list  # Print installed packages for debugging purposes
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
 
-    - name: Install dependencies
-      working-directory: app  
-      run: python3 app.py
+    - name: Setup Terraform v0.14.0
+      uses: hashicorp/setup-Terraform@v1
+      with:
+        terraform_version: 0.14.0
+        terraform_wrapper: false
+        
+    - name: Setup Terraform version
+      run: terraform --version
 
-      
-  # Infra-Deploy:
-  #   runs-on: ubuntu-latest
+    - name: Setup Terragrunt v0.50.9
+      run: |
+        sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.50.9/terragrunt_linux_amd64"
+        sudo chmod +x /bin/terragrunt
+        terragrunt -v
+
+
+    - name: Terragrunt Destroy
+      if: steps.apply.outcome == 'failure'
+      working-directory: ./infra/environments
+      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
+
+        
+
+  #   - name: Terragrunt Init
+  #     working-directory: ./infra/environments
+  #     run: terragrunt init --terragrunt-non-interactive -lock=false
+
+  #   - name: Terragrunt Plan
+  #     working-directory: ./infra/environments
+  #     run: terragrunt plan --terragrunt-non-interactive -lock=false
+
+  #   - name: Terragrunt Apply
+  #     working-directory: ./infra/environments
+  #     run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
+
+  #   - name: Terragrunt Apply
+  #     working-directory: ./infra/environments
+  #     id: apply
+  #     run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false || echo "Apply failed"
+
+  #   - name: Terragrunt Destroy
+  #     if: steps.apply.outcome == 'failure'
+  #     working-directory: ./infra/environments
+  #     run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false      
     
-  #   defaults:
-  #     run:
-  #       shell: bash
-      
+  #   - name: Terragrunt refresh
+  #     working-directory: ./infra/environments
+  #     run: terragrunt refresh -lock=false && terragrunt output
+
+  #   - name: Terragrunt output
+  #     working-directory: ./infra/environments
+  #     run: |
+  #       TERRAGRUNT_OUTPUT=$(terragrunt output)
+  #       echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
+  #       echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
+
+
+
+  # App-Deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: Infra-Deploy
+    
   #   steps:
-  #   # Checkout the repository to the GitHub Actions runner
   #   - name: Checkout
   #     uses: actions/checkout@v4
-
-
     
-    # - name: Set up environment variables
-    #   run: |
-    #     echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-    #     echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-    #     echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
-
-    # - name: Setup Terraform v0.14.0
-    #   uses: hashicorp/setup-Terraform@v1
-    #   with:
-    #     terraform_version: 0.14.0
-    #     terraform_wrapper: false
-        
-    # - name: Setup Terraform version
-    #   run: terraform --version
-    # # - name: Setup Terraform wrapper path
-    # #   run: which terraform        
-
-    # - name: Setup Terragrunt v0.50.9
-    #   run: |
-    #     sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.50.9/terragrunt_linux_amd64"
-    #     sudo chmod +x /bin/terragrunt
-    #     terragrunt -v
-
-
-    # - name: Terragrunt Destroy
-    #   working-directory: ./infra/environments
-    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
-
-
-    # - name: Terragrunt Init
-    #   working-directory: ./infra/environments
-    #   run: terragrunt init --terragrunt-non-interactive -lock=false
-
-    # # Generates an execution plan for Terragrunt
-    # - name: Terragrunt Plan
-    #   working-directory: ./infra/environments
-    #   run: terragrunt plan --terragrunt-non-interactive -lock=false
-
-    # - name: Terragrunt Apply
-    #   working-directory: ./infra/environments
-    #   run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
-    
-    # - name: Terragrunt refresh
-    #   working-directory: ./infra/environments
-    #   run: terragrunt refresh -lock=false && terragrunt output
-
-
-    # - name: Terragrunt output
-    #   working-directory: ./infra/environments
-    #   run: |
-    #     TERRAGRUNT_OUTPUT=$(terragrunt output)
-    #     echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
-    #     echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # - name: Terragrunt output
-    #   working-directory: ./infra/environments
-    #   run: terragrunt output -json
-
-    # - name: Terragrunt Apply
-    #   working-directory: ./infra/environments
-    #   run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
-
-    # - name: Capture CloudFront Domain Name
-    #   working-directory: ./infra
-    #   id: cf_output
-    #   run: |
-    #     terragrunt output cloudfront_domain_name >> asd.txt
-    #     cat asd.txt
-    #   shell: bash
-
-    # - name: show CloudFront Domain Name
-    #   run: echo "$GITHUB_OUTPUT"
-
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v2
+  #     with:
+  #       python-version: '3.9'
       
-    # - name: Capture CloudFront Domain Name
-    #   run: $cloudfront_domain_name
+  #   - name: Install dependencies
+  #     working-directory: app  
+  #     run: |
+  #       pip install -r requirements.txt
+  #       pip list  # Print installed packages for debugging purposes
+
+  #   - name: Install dependencies
+  #     working-directory: app  
+  #     run: python3 app.py
 
 
 
-# on:
-#   workflow_dispatch:
-#     # allows to execute manually
-  
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-      
-#     steps:
-#     # Checkout the repository to the GitHub Actions runner
-#     - name: Checkout
-#       uses: actions/checkout@v4
-
-
-    
-#     - name: Set up environment variables
-#       run: |
-#         echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-#         echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-#         echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
-
-#     - name: Setup Terraform v0.14.0
-#       uses: hashicorp/setup-Terraform@v1
-#       with:
-#         terraform_version: 0.14.0
-#         terraform_wrapper: false
-        
-#     - name: Setup Terraform version
-#       run: terraform --version
-#     # - name: Setup Terraform wrapper path
-#     #   run: which terraform        
-
-#     - name: Setup Terragrunt v0.50.9
-#       run: |
-#         sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.50.9/terragrunt_linux_amd64"
-#         sudo chmod +x /bin/terragrunt
-#         terragrunt -v
-
-
-#     - name: Terragrunt Destroy
-#       working-directory: ./infra/environments
-#       run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
-
-
-    # - name: Terragrunt Init
-    #   working-directory: ./infra/environments
-    #   run: terragrunt init --terragrunt-non-interactive -lock=false
-
-    # # Generates an execution plan for Terragrunt
-    # - name: Terragrunt Plan
-    #   working-directory: ./infra/environments
-    #   run: terragrunt plan --terragrunt-non-interactive -lock=false 
-
-    # - name: Terragrunt Apply
-    #   working-directory: ./infra/environments
-    #   run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
-
-    # - name: Capture CloudFront Domain Name
-    #   working-directory: ./infra
-    #   id: cf_output
-    #   run: |
-    #     terragrunt output cloudfront_domain_name >> asd.txt
-    #     cat asd.txt
-    #   shell: bash
-
-    # - name: show CloudFront Domain Name
-    #   run: echo "$GITHUB_OUTPUT"
-
-      
-    # - name: Capture CloudFront Domain Name
-    #   run: $cloudfront_domain_name
-
-
-    # - name: Val2
-    #   working-directory: ./infra
-    #   run: |
-    #     echo "$(terragrunt output -raw cloudfront_domain_name)" >> asd.txt
-    #     cat asd.txt
-    #   shell: bash
-
-      
-#        echo $GITHUB_OUTPUT terragrunt output cloudfront_domain_name >> $GITHUB_OUTPUT
-#         echo "domain_name=$(terragrunt output -raw cloudfront_domain_name)" >> $GITHUB_OUTPUT
-#         ${{ steps.cf_output.outputs.domain_name }}
-
-
-    # - name: Capture CloudFront Domain Name
-    #   id: capture_cf_domain
-    #   run: |
-    #     terragrunt output cloudfront_domain_name > /tmp/output.txt
-    #     echo "::set-output name=cf_domain::$(cat /tmp/output.txt)"
-    #     cf_domain=$(terragrunt output cloudfront_domain_name)
-    #     echo "CF_DOMAIN=$cf_domain" >> $GITHUB_ENV
-    #     echo "The CloudFront Domain Name is $CF_DOMAIN"
-    #     echo "cf domain $cf_domain" 
-    
-
-
-      # Accessing the CloudFront Domain Name environment variable set in the build job
-
-        
-  # destroy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #   - name: Terragrunt Destroy
-  #     working-directory: ./infra/environments
-  #     run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
-
-  #   - name: Terragrunt Destroy
-  #     working-directory: ./infra/environments
-  #     run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false #-var 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' --terragrunt-non-interactive -lock=false
 
 
 
-#TODO:
-#add terragrunt apply
-#add step / job for app that depend on previous job/step 
+
+
