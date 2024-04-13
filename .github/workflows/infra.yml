@@ -61,6 +61,7 @@ jobs:
     - name: Capture CloudFront Domain Name
       run: |
         terragrunt output cloudfront_domain_name > /tmp/output.txt
+        cat /tmp/output.txt
 
     - name: Capture CloudFront Domain Name
       id: capture_cf_domain
