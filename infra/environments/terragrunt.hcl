@@ -20,7 +20,8 @@ inputs = {
 
 
 
-  cloudfront_domain_name = cf.outputs["cloudfront_domain_name"]
+  cloudfront_domain_name = get_terragrunt_output("cloudfront_domain_name")
+
 }
 
 
