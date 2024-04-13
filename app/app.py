@@ -35,16 +35,17 @@ def filter_objects(filtered_products):
         json.dump(filtered_products, filtered_list)
 
 
-def upload_to_s3(cfDomain, filtered_list_path):
+def upload_to_s3(cfDomain, filtered_list_path, s3_url):
     try:
-        subprocess.run(["curl", "-X", "PUT", "-T", "filtered_list.json", f"http://{cfDomain}"], check=True)
+        subprocess.run(["curl", "-X", "PUT", "-T", filtered_list_path, s3_url], check=True)
         print("File successfully uploaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error uploading file: {e}")
 
-def download_from_s3(cfDomain):
+def download_from_s3(cfDomain, s3_url):
+    download_url = f'{s3_url}/filtered_list.json'
     try:
-        subprocess.run(["curl", "-o", "downloaded_filtered_list.json", f"http://{cfDomain}/filtered_list.json"], check=True)
+        subprocess.run(["curl", "-o", "downloaded_filtered_list.json", download_url], check=True)
         print("File successfully downloaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error downloading file: {e}")
@@ -66,8 +67,7 @@ if __name__ == "__main__":
 
     cfDomain = args.cfDomain  # Assigning value to cfDomain from command line argument
     cfDomain = os.getenv("TERRAGRUNT_OUTPUT")
-    print(cfDomain)
-    
+    s3_url = f'http://{cfDomain}'
 
     write_output(URL)
     filter_objects(filtered_products)
