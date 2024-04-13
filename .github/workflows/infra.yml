@@ -44,9 +44,9 @@ jobs:
         terragrunt -v
 
 
-    # - name: Terragrunt Destroy
-    #   working-directory: ./infra/environments
-    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+    - name: Terragrunt Destroy
+      working-directory: ./infra/environments
+      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
 
 
     - name: Terragrunt Init
@@ -72,7 +72,7 @@ jobs:
       run: |
         TERRAGRUNT_OUTPUT=$(terragrunt output)
         echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
-        echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
+        echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
 
 
     # - name: Terragrunt output
