@@ -19,7 +19,8 @@ inputs = {
   tag_Terraform = "True"
 
 
-  cloudfront_domain_name = dependency.cf.outputs["cloudfront_domain_name"]
+
+  cloudfront_domain_name = dependencymodule.cf.outputs["cloudfront_domain_name"]
 
 }
 
