@@ -56,7 +56,11 @@ jobs:
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
       working-directory: ./infra/environments
-      run: terragrunt plan --terragrunt-non-interactive -lock=false && terragrunt output
+      run: terragrunt plan --terragrunt-non-interactive -lock=false
+    
+    - name: Terragrunt refresh
+      working-directory: ./infra/environments
+      run: terragrunt refresh && terragrunt output
 
     # - name: Terragrunt Apply
     #   working-directory: ./infra/environments
