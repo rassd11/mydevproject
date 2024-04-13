@@ -20,8 +20,7 @@ inputs = {
 
 
 
-  cloudfront_domain_name = dependency.module.cf.outputs["cloudfront_domain_name"]
-
+  cloudfront_domain_name = cf.outputs["cloudfront_domain_name"]
 }
 
 
