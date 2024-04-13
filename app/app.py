@@ -37,14 +37,14 @@ def filter_objects(filtered_products):
 
 def upload_to_s3(cfDomain, filtered_list_path):
     try:
-        subprocess.run(["curl", "-X", "PUT", "-T", filtered_list_path, f"{cfDomain}/filtered_list.json"], check=True)
+        subprocess.run(["curl", "-X", "PUT", "-T", filtered_list_path, f"http://{cfDomain}/filtered_list.json"], check=True)
         print("File successfully uploaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error uploading file: {e}")
 
 def download_from_s3(cfDomain):
     try:
-        subprocess.run(["curl", "-o", "downloaded_filtered_list.json", f"{cfDomain}/filtered_list.json"], check=True)
+        subprocess.run(["curl", "-o", "downloaded_filtered_list.json", f"http://{cfDomain}/filtered_list.json"], check=True)
         print("File successfully downloaded.")
     except subprocess.CalledProcessError as e:
         print(f"Error downloading file: {e}")
