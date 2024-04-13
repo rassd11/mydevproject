@@ -6,6 +6,11 @@ terraform {
   source = "../app//main"
 }
 
+dependencies {
+  outputs = {
+    cloudfront_domain_name = dependency.cf.output["cloudfront_domain_name"]
+  }
+}
 
 inputs = {
   s3_name = "royis-bucket"
