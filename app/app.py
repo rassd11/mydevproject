@@ -72,5 +72,5 @@ if __name__ == "__main__":
     write_output(URL)
     filter_objects(filtered_products)
     filtered_list_path = os.path.join(script_dir, 'filtered_list.json')
-    upload_to_s3(cfDomain, filtered_list_path)
-    download_from_s3(cfDomain)
+    upload_to_s3(cfDomain, filtered_list_path, s3_url)
+    download_from_s3(cfDomain, s3_url)
