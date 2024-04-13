@@ -4,7 +4,8 @@ name: deploy app and infra
 on:
   workflow_dispatch:
     # allows to execute manually
-  
+
+
 jobs:
   Infra-Deploy:
     runs-on: ubuntu-latest
@@ -26,53 +27,53 @@ jobs:
         echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
         echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
 
-    - name: Setup Terraform v0.14.0
-      uses: hashicorp/setup-Terraform@v1
-      with:
-        terraform_version: 0.14.0
-        terraform_wrapper: false
+    # - name: Setup Terraform v0.14.0
+    #   uses: hashicorp/setup-Terraform@v1
+    #   with:
+    #     terraform_version: 0.14.0
+    #     terraform_wrapper: false
         
-    - name: Setup Terraform version
-      run: terraform --version
-    # - name: Setup Terraform wrapper path
-    #   run: which terraform        
+    # - name: Setup Terraform version
+    #   run: terraform --version
+    # # - name: Setup Terraform wrapper path
+    # #   run: which terraform        
 
-    - name: Setup Terragrunt v0.50.9
-      run: |
-        sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.50.9/terragrunt_linux_amd64"
-        sudo chmod +x /bin/terragrunt
-        terragrunt -v
-
-
-    - name: Terragrunt Destroy
-      working-directory: ./infra/environments
-      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+    # - name: Setup Terragrunt v0.50.9
+    #   run: |
+    #     sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.50.9/terragrunt_linux_amd64"
+    #     sudo chmod +x /bin/terragrunt
+    #     terragrunt -v
 
 
-    - name: Terragrunt Init
-      working-directory: ./infra/environments
-      run: terragrunt init --terragrunt-non-interactive -lock=false
+    # - name: Terragrunt Destroy
+    #   working-directory: ./infra/environments
+    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
 
-    # Generates an execution plan for Terragrunt
-    - name: Terragrunt Plan
-      working-directory: ./infra/environments
-      run: terragrunt plan --terragrunt-non-interactive -lock=false
 
-    - name: Terragrunt Apply
-      working-directory: ./infra/environments
-      run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
+    # - name: Terragrunt Init
+    #   working-directory: ./infra/environments
+    #   run: terragrunt init --terragrunt-non-interactive -lock=false
+
+    # # Generates an execution plan for Terragrunt
+    # - name: Terragrunt Plan
+    #   working-directory: ./infra/environments
+    #   run: terragrunt plan --terragrunt-non-interactive -lock=false
+
+    # - name: Terragrunt Apply
+    #   working-directory: ./infra/environments
+    #   run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
     
-    - name: Terragrunt refresh
-      working-directory: ./infra/environments
-      run: terragrunt refresh -lock=false && terragrunt output
+    # - name: Terragrunt refresh
+    #   working-directory: ./infra/environments
+    #   run: terragrunt refresh -lock=false && terragrunt output
 
 
-    - name: Terragrunt output
-      working-directory: ./infra/environments
-      run: |
-        TERRAGRUNT_OUTPUT=$(terragrunt output)
-        echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
-        echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
+    # - name: Terragrunt output
+    #   working-directory: ./infra/environments
+    #   run: |
+    #     TERRAGRUNT_OUTPUT=$(terragrunt output)
+    #     echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
+    #     echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"   
 
 
 
@@ -86,9 +87,18 @@ jobs:
         shell: bash
       
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v4
+
+    - name: Installing Python  Dependancies
+      working-directory: ./app
+      run: pip install -r requirements.txt
+
+      
+    - name: running app.py
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10' 
+    - run: python my_script.py
 
 
 
