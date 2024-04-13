@@ -33,6 +33,8 @@ resource "aws_s3_bucket" "this" {
     index_document = "index.html"
   }
 
+  force_destroy = true
+
   tags = {
     Name = var.tag_Name
     Owner = var.tag_Owner
