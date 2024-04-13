@@ -78,7 +78,7 @@ jobs:
       working-directory: ./infra/environments
       run: |
         TERRAGRUNT_OUTPUT=$(terragrunt output)
-        echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_ENV
+        echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_OUTPUT
         echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
     
 
