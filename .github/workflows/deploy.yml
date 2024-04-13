@@ -105,7 +105,11 @@ jobs:
       working-directory: app  
       env:
         TERRAGRUNT_OUTPUT: ${{ steps.terragrunt-output.outputs.TERRAGRUNT_OUTPUT }}
-      run: python3 app.py --cfDomain="$TERRAGRUNT_OUTPUT"
+      run: |
+        TERRAGRUNT_OUTPUT=$(terragrunt output cloudfront_domain_name)
+        echo "TERRAGRUNT_OUTPUT=$TERRAGRUNT_OUTPUT" >> $GITHUB_OUTPUT
+        echo "Terragrunt output variable set to: $TERRAGRUNT_OUTPUT"
+#      run: python3 app.py --cfDomain="$TERRAGRUNT_OUTPUT"
 
 
 
