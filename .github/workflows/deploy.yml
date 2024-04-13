@@ -101,7 +101,7 @@ jobs:
         pip install -r requirements.txt
         pip list  # Print installed packages for debugging purposes
 
-    - name: Install dependencies
+    - name: Run Python App
       working-directory: app  
       env:
         TERRAGRUNT_OUTPUT: ${{ steps.terragrunt-output.outputs.TERRAGRUNT_OUTPUT }}
