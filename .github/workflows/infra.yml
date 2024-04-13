@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        shell: bash
       
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -40,72 +44,38 @@ jobs:
         terragrunt -v
 
 
-    - name: Terragrunt Destroy
+    # - name: Terragrunt Destroy
+    #   working-directory: ./infra/environments
+    #   run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+
+
+    - name: Terragrunt Init
       working-directory: ./infra/environments
-      run: terragrunt destroy --auto-approve --terragrunt-non-interactive -lock=false 
+      run: terragrunt init --terragrunt-non-interactive -lock=false
 
+    # Generates an execution plan for Terragrunt
+    - name: Terragrunt Plan
+      working-directory: ./infra/environments
+      run: terragrunt plan --terragrunt-non-interactive -lock=false && terragrunt output
 
+    # - name: Terragrunt Apply
+    #   working-directory: ./infra/environments
+    #   run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false 
 
+    # - name: Capture CloudFront Domain Name
+    #   working-directory: ./infra
+    #   id: cf_output
+    #   run: |
+    #     terragrunt output cloudfront_domain_name >> asd.txt
+    #     cat asd.txt
+    #   shell: bash
 
-# on:
-#   workflow_dispatch:
+    # - name: show CloudFront Domain Name
+    #   run: echo "$GITHUB_OUTPUT"
 
-# env:
-#   tf_version: '0.14.0'
-#   tg_version: '0.50.9'
-#   working_dir: './infra/environments'
-
-# jobs:
-#   checks:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: 'Checkout'
-#         uses: actions/checkout@main
-
-#       - name: Set up environment variables
-#         run: |
-#           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-#           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-#           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
-
-      # # - name: Destroy
-      # #   uses: gruntwork-io/terragrunt-action@v2
-      # #   with:
-      # #     tf_version: ${{ env.tf_version }}
-      # #     tg_version: ${{ env.tg_version }}
-      # #     tg_dir: ${{ env.working_dir }}
-      # #     tg_command: 'destroy --aut-approve -lock=false'
-
-      # - name: init
-      #   uses: gruntwork-io/terragrunt-action@v2
-      #   with:
-      #     tf_version: ${{ env.tf_version }}
-      #     tg_version: ${{ env.tg_version }}
-      #     tg_dir: ${{ env.working_dir }}
-      #     tg_add_approve: 1
-      #     tg_command: 'init'
-
-      # - name: Plan
-      #   uses: gruntwork-io/terragrunt-action@v2
-      #   with:
-      #     tf_version: ${{ env.tf_version }}
-      #     tg_version: ${{ env.tg_version }}
-      #     tg_dir: ${{ env.working_dir }}
-      #     tg_command: 'plan'
-
-
-      # - name: Deploy
-      #   uses: gruntwork-io/terragrunt-action@v2
-      #   with:
-      #     tf_version: ${{ env.tf_version }}
-      #     tg_version: ${{ env.tg_version }}
-      #     tg_dir: ${{ env.working_dir }}
-      #     tg_add_approve: 1
-      #     tg_action_output: true
-      #     tg_command: 'apply'
-
-      # - name: Set CF Domain Name Environment Variable
-      #   run: echo "CF_DOMAIN_NAME=${{ steps.terragrunt_deploy.outputs.cloudfront_domain_name }}" >> $GITHUB_ENV
+      
+    # - name: Capture CloudFront Domain Name
+    #   run: $cloudfront_domain_name
 
 
 
