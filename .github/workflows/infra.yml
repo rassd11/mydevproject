@@ -52,7 +52,7 @@ jobs:
     - name: Terragrunt Apply
       working-directory: ./infra/environments
       id: apply
-      run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false || echo "Apply failed"
+      run: terragrunt apply --auto-approve --terragrunt-non-interactive -lock=false
 
     - name: Terragrunt Destroy
       if: steps.apply.outcome == 'failure'
