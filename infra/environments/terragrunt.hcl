@@ -8,6 +8,7 @@ include {
 
 terraform {
   source = "../app//main"
+  path   = find_in_parent_folders()
 }
 
 dependencies {
