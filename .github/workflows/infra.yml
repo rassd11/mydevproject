@@ -63,7 +63,8 @@ jobs:
       id: cf_output
       run: terragrunt output cloudfront_domain_name 
 #        echo $GITHUB_OUTPUT terragrunt output cloudfront_domain_name >> $GITHUB_OUTPUT
-
+#         echo "domain_name=$(terragrunt output -raw cloudfront_domain_name)" >> $GITHUB_OUTPUT
+#         ${{ steps.cf_output.outputs.domain_name }}
 
 
     # - name: Capture CloudFront Domain Name
