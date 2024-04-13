@@ -16,7 +16,7 @@ jobs:
       
     steps:
     - name: Installing Python  Dependancies
-      run: pwd
+      run: cd /app && pip install -r requirements.txt
     #   working-directory: app
     #   run: pip install -r requirements.txt
 
