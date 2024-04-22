@@ -1,31 +1,35 @@
+#Welcome to the Project!
+Hey there! If you're checking out this project, you're in for a treat. This is my playground to showcase some cool skills, all bundled up into a simple yet effective application.
 
-# The Project
-The project idea is to demonstrate my skills by creating simple application that also include infrastructure set up and wrap it with github actions deployment process.
+##What's the App All About?
+Imagine a Python app that's like a helpful genie for JSON files. You feed it some JSON, and it works its magic, parsing it just the way you need. But that's not all—it then whisks that parsed data off to an AWS S3 bucket. Handy, right?
 
-## The App
-The main app idea is simple python application that takes json as input and parse it according to specific needs then upload to s3 bucket.
-The project divides into 2 parts - application and infrastructure:
-the application is simple python application that parse given JSON object and upload it to s3.
-while the infrastructure part goal is to set up private s3 bucket on given aws account with cloudfront by using terraform and terragrunt and make sure that the bucket will be accessible only fron cloudfront. 
-and its all wrapped with github actions pipeline.
+This project has two sides to it:
 
+###1. The Application
+This is where the magic happens. The Python app does its JSON parsing and S3 uploading dance. It's straightforward yet powerful.
 
-## Getting Started
+###2. The Infrastructure
+Now, this part is the backbone. We're talking about setting up a private S3 bucket in your AWS account, with CloudFront sprinkled on top for some extra magic. We're using Terraform and Terragrunt to weave this infrastructure together. And oh, we make sure that bucket is accessible only through CloudFront.
 
-### Dependencies
-* aws account.
-* before running make sure to add your aws account credentials (AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY, AWS_REGION to actions secrets.
+And guess what? We've got it all wrapped up in a neat little bow with GitHub Actions. Deployments made easy!
 
-## Usage
-to execute the process just go to Actions , select deploy app and infra , and click on run workflow.
-please note that the process currently supports only manual deployments.
+##Ready to Dive In?
+Dependencies
+All you need is an AWS account and a bit of enthusiasm!
 
-## TODO
-* replace aws authentication method to role based access.
-* expand the project with more tools and technologies
+Before you dive in, make sure to add your AWS account credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION) to your GitHub Actions secrets. Safety first!
 
-## Help
-for any issues , questions or advices please contact me
+##Usage
+Ready to rock? Head over to Actions, find the "Deploy App and Infra" workflow, and hit that "Run Workflow" button. Simple as that! Just a heads-up, for now, it's manual deployments only, but hey, we're working on it!
 
-## Authors
-@me
+##What's Next?
+We've got big dreams for this project. Here's what's on our to-do list:
+
+Swap out AWS authentication to something snazzier, like role-based access.
+Sprinkle in more tools and technologies. The sky's the limit!
+##Need a Hand?
+Got questions? Ran into a snag? Or maybe you have some awesome advice? Reach out anytime. We're all ears!
+
+About the Author
+Hey there! I'm @me. Nice to meet you!
