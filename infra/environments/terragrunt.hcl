@@ -8,14 +8,14 @@ terraform {
 
 
 inputs = {
-  s3_name = "royis-bucket"
+  s3_name = "me-bucket"
   region = "us-east-1"
   cf_default_certificate = "true"
   cookies_forward = "none"
   geo_restriction = "none"
   policy_type = "AWS"
   tag_Name = "ProductCloudFront"
-  tag_Owner = "RoyiS"
+  tag_Owner = "MeS"
   tag_Terraform = "True"
   
 }
